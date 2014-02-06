@@ -10,6 +10,7 @@ public class NewPet extends Activity{
 		requestWindowFeature(Window.FEATURE_NO_TITLE); 
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.new_pet_screen);
+	    //THIS IS A TEST TO SEE IF I HAVE GITHUB WORKING!!!!!
 	}
 	
 	
