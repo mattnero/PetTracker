@@ -6,13 +6,29 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 public class HomeScreen extends Activity {
-	public final static String EXTRA_MESSAGE = "com.example.pettracker.MESSAGE";
+	
+	ImageButton addpet;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
+        addpet = (ImageButton)findViewById(R.id.imageButton1);
+        
+        addpet.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(HomeScreen.this, NewPet.class);
+                startActivity(intent);      
+                finish();
+				
+				
+			}
+		});
+        
     }
 
 
@@ -22,13 +38,8 @@ public class HomeScreen extends Activity {
         getMenuInflater().inflate(R.menu.home_screen, menu);
         return true;
     }
-    public void sendMessage(View view) {
-        Intent intent = new Intent(this, NewPet.class);
-        EditText editText = (EditText) findViewById(R.id.imageButton1);
-        String message = editText.getText().toString();
-        intent.putExtra(EXTRA_MESSAGE, message);
-        startActivity(intent);
-    }
+   
+   
 
     
 }
