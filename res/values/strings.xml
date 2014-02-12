@@ -7,5 +7,6 @@
     <color name="purple">#9E4EF4</color>
     <string name="newPet">this is the new pet screen</string>
     <string name="descPlus">add a new pet</string>
+    <string name="descpic">select an image of the pet you wish to add</string>
 
 </resources>
