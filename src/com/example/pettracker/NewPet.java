@@ -12,32 +12,47 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView.ScaleType;
 
 public class NewPet extends Activity{
 	ImageButton addpic;
+	Button save; 
 	public static final int GET_FROM_GALLERY = 3;
 	protected void onCreate(Bundle savedInstanceState) {
 		requestWindowFeature(Window.FEATURE_NO_TITLE); 
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.new_pet_screen);
 	    
-	    
+	    save = (Button)findViewById(R.id.button1);
 	    addpic = (ImageButton)findViewById(R.id.selectImage);
         
-        addpic.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
-				
-				
-				
-			}
-		});
+	    save.setOnClickListener(onClickListener);
+        addpic.setOnClickListener(onClickListener);
+        
+	    
 	}
+	private OnClickListener onClickListener = new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			switch (v.getId()){
+				case R.id.button1:
+					//do something
+				break;
+				case R.id.selectImage:
+					//do something
+					startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
+				break;
+			
+			
+			
+			}
+		}
+	};
 	public static int getOrientation(Context context, Uri photoUri) {
 	    /* it's on the external media. */
 	    Cursor cursor = context.getContentResolver().query(photoUri,
@@ -74,6 +89,7 @@ public class NewPet extends Activity{
 	        }
 	    }
 	}
+	
 	
 	
 }
