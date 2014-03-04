@@ -15,12 +15,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView.ScaleType;
 
 public class NewPet extends Activity{
 	ImageButton addpic;
 	Button save; 
+	EditText name = (EditText)findViewById(R.id.editText1) ;
+	String petname = name.getText().toString();
 	public static final int GET_FROM_GALLERY = 3;
 	protected void onCreate(Bundle savedInstanceState) {
 		requestWindowFeature(Window.FEATURE_NO_TITLE); 
@@ -41,10 +44,14 @@ public class NewPet extends Activity{
 		public void onClick(View v) {
 			switch (v.getId()){
 				case R.id.button1:
-					//do something
+					Intent intent = new Intent(NewPet.this, HomeScreen.class);
+					intent.putExtra("petname", petname);
+					intent.putExtra("newicon", true);
+	                startActivity(intent);      
+	                finish();
 				break;
 				case R.id.selectImage:
-					//do something
+					
 					startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
 				break;
 			
