@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 public class HomeScreen extends Activity {
 	
@@ -23,29 +24,29 @@ public class HomeScreen extends Activity {
 
         if (extras != null) {
         	
-            petname = extras.getString("name");
+            petname = extras.getString("petname");
             if (extras.getBoolean("newicon")){
+            	
             	Button newpet = new Button(this);
             	newpet.setText(petname);
-            	
-            	//=====================not sure about this part=============================
-            	LinearLayout ll = (LinearLayout)findViewById(R.id.button1);
-                LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-                ll.addView(newpet, lp);
-            	//==========================================================================
+            	RelativeLayout layout = (RelativeLayout) findViewById(R.id.newbuttons);
+            	layout.addView(newpet); 
             	
             }
         }
-        
+       
         addpet = (ImageButton)findViewById(R.id.imageButton1);
         
         addpet.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
+				
+				
 				Intent newintent = new Intent(HomeScreen.this, NewPet.class);
+				
                 startActivity(newintent);      
-                finish();
+                
 				
 				
 			}
@@ -59,6 +60,12 @@ public class HomeScreen extends Activity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.home_screen, menu);
         return true;
+    }
+    
+    protected void onPause(){
+    	super.onPause();
+    	
+    	
     }
    
    

@@ -22,18 +22,26 @@ import android.widget.ImageView.ScaleType;
 public class NewPet extends Activity{
 	ImageButton addpic;
 	Button save; 
-	EditText name = (EditText)findViewById(R.id.editText1) ;
-	String petname = name.getText().toString();
+	Button cancel;
+	String petname;
+	EditText name;
 	public static final int GET_FROM_GALLERY = 3;
+	
 	protected void onCreate(Bundle savedInstanceState) {
 		requestWindowFeature(Window.FEATURE_NO_TITLE); 
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.new_pet_screen);
 	    
+	    name = (EditText)findViewById(R.id.editText1) ;
+		
+		
+	    
 	    save = (Button)findViewById(R.id.button1);
+	    cancel = (Button)findViewById(R.id.button2);
 	    addpic = (ImageButton)findViewById(R.id.selectImage);
         
 	    save.setOnClickListener(onClickListener);
+	    cancel.setOnClickListener(onClickListener);
         addpic.setOnClickListener(onClickListener);
         
 	    
@@ -44,12 +52,19 @@ public class NewPet extends Activity{
 		public void onClick(View v) {
 			switch (v.getId()){
 				case R.id.button1:
+					petname = name.getText().toString();
 					Intent intent = new Intent(NewPet.this, HomeScreen.class);
 					intent.putExtra("petname", petname);
 					intent.putExtra("newicon", true);
 	                startActivity(intent);      
 	                finish();
 				break;
+				case R.id.button2:
+					Intent intent2 = new Intent(NewPet.this, HomeScreen.class);
+	                startActivity(intent2);      
+	                finish();
+				break;
+				
 				case R.id.selectImage:
 					
 					startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
@@ -75,7 +90,7 @@ public class NewPet extends Activity{
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 	    super.onActivityResult(requestCode, resultCode, data);
-
+	    
 
 	    //Detects request codes
 	    if(requestCode==GET_FROM_GALLERY && resultCode == Activity.RESULT_OK) {
@@ -84,7 +99,7 @@ public class NewPet extends Activity{
 	        
 	        try {
 	                bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
-	                
+	                System.out.println("gets to pic assignment");
 	                addpic.setImageBitmap(bitmap);
 	                addpic.setScaleType(ScaleType.CENTER_INSIDE);
 	        } catch (FileNotFoundException e) {
