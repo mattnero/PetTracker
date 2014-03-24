@@ -55,7 +55,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * All CRUD(Create, Read, Update, Delete) Operations
      */
  
-    // Adding new contact
+    // Adding new pet
     void addPet(PetInfo pet) {
         SQLiteDatabase db = this.getWritableDatabase();
  
@@ -135,7 +135,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
  
  
     // Getting contacts Count
-    public int getContactsCount() {
+    public int getPetCount() {
         String countQuery = "SELECT  * FROM " + TABLE_PETS;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);

@@ -24,7 +24,12 @@ public class NewPet extends Activity{
 	Button save; 
 	Button cancel;
 	String petname;
+	int pettype;
+	int petweight;
 	EditText name;
+	EditText type;
+	EditText weight;
+	DatabaseHandler db;
 	public static final int GET_FROM_GALLERY = 3;
 	
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +37,10 @@ public class NewPet extends Activity{
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.new_pet_screen);
 	    
+	    db = new DatabaseHandler(this);
 	    name = (EditText)findViewById(R.id.editText1) ;
-		
+	    type = (EditText)findViewById(R.id.editText2) ;
+	    weight = (EditText)findViewById(R.id.editText3) ;
 		
 	    
 	    save = (Button)findViewById(R.id.button1);
@@ -53,9 +60,12 @@ public class NewPet extends Activity{
 			switch (v.getId()){
 				case R.id.button1:
 					petname = name.getText().toString();
+					pettype = Integer.parseInt(type.getText().toString());
+					petweight = Integer.parseInt(weight.getText().toString());
+					
+					db.addPet(new PetInfo(petname,pettype,petweight));
+					
 					Intent intent = new Intent(NewPet.this, HomeScreen.class);
-					intent.putExtra("petname", petname);
-					intent.putExtra("newicon", true);
 	                startActivity(intent);      
 	                finish();
 				break;
