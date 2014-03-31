@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#7C259C">
+    android:background="#B6A6BD">
     
 	<LinearLayout
 	    android:layout_width="match_parent"
@@ -13,10 +13,10 @@
     	tools:context=".NewPet" >
     <ImageButton
         android:id="@+id/selectImage"
-        android:layout_width="135dp"
-        android:layout_height="135dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_gravity="center"
-        android:background="@android:color/white"
+        android:background="@android:color/transparent"
         android:contentDescription="@string/descpic"
         android:cropToPadding="true"
         android:scaleType="centerInside"

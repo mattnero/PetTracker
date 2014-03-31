@@ -10,7 +10,13 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Matrix;
+import android.graphics.Paint;
+import android.graphics.PorterDuff.Mode;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,6 +31,7 @@ import android.widget.ImageView.ScaleType;
 
 public class NewPet extends Activity{
 	ImageButton addpic;
+	static Bitmap result;
 	Button save; 
 	Button cancel;
 	String petname;
@@ -145,7 +152,9 @@ public class NewPet extends Activity{
 	        try {
 	                bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
 	                Bitmap bmRotated = rotateBitmap(decodeSampledBitmapFromFile(imagepath, 200, 200), orientation); 
-	                addpic.setImageBitmap(bmRotated);
+	                Bitmap resized = Bitmap.createScaledBitmap(bmRotated, 400, 400, true);
+	                Bitmap bmConverted = getRoundedRectBitmap(resized, 400);
+	                addpic.setImageBitmap(bmConverted);
 	                addpic.setScaleType(ScaleType.CENTER);
 	        } catch (FileNotFoundException e) {
 	                // TODO Auto-generated catch block
@@ -254,6 +263,33 @@ public class NewPet extends Activity{
 		    return null;
 		}
 	}
+	
+	
+	
+	
+	public static Bitmap getRoundedRectBitmap(Bitmap bitmap, int pixels) {
+	    Bitmap result = null;
+	    try {
+	        result = Bitmap.createBitmap(400, 400, Bitmap.Config.ARGB_8888);
+	        Canvas canvas = new Canvas(result);
+
+	        int color = 0xff424242;
+	        Paint paint = new Paint();
+	        Rect rect = new Rect(0, 0, 400, 400);
+
+	        paint.setAntiAlias(true);
+	        canvas.drawARGB(0, 0, 0, 0);
+	        paint.setColor(color);
+	        canvas.drawCircle(200, 200, 200, paint);
+	        paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
+	        canvas.drawBitmap(bitmap, rect, rect, paint);
+
+	    } catch (NullPointerException e) {
+	    } catch (OutOfMemoryError o) {
+	    }
+	    return result;
+	}
+
 	
 	
 }
